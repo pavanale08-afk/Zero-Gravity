@@ -24,85 +24,163 @@
 <body>
 <div class="demo-bar" data-demo-bar hidden>Versione di prova: lezioni e prenotazioni restano solo su questo dispositivo e non arrivano a nessuno.</div>
 <a class="skip" href="#main">Vai al contenuto</a>
-<header class="site-header">
-  <div class="wrap">
-    <a class="wordmark" href="index.html" aria-label="Zero Gravity Pilates &amp; Dance, home">Zero Gravity<span>Pilates &amp; Dance · Feltre</span></a>
-    <nav class="nav nav--simple" aria-label="Principale">
-      <a href="posti-liberi.html">Posti liberi</a>
-      <a href="corsi.html">Corsi</a>
-      <a href="chi-siamo.html">Chi siamo</a>
-      <a href="contatti.html">Contatti</a>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="wordmark" href="index.html" aria-label="Zero Gravity Pilates &amp; Dance, torna alla home">Zero Gravity<span>Pilates &amp; Dance · Feltre</span></a>
+    <nav class="topnav" id="menu" aria-label="Principale">
+      <div class="topnav-links">
+        <a href="index.html">Home</a>
+        <a href="corsi.html">Corsi</a>
+        <a href="chi-siamo.html">Chi siamo</a>
+        <a href="contatti.html">Contatti</a>
+      </div>
+      <a class="btn topnav-cta" href="prenota.html">Prenota</a>
+      <div class="topnav-extra">
+        <a class="btn btn--wa btn--block" href="https://wa.me/393477123959?text=Ciao%20Anna%2C%20ti%20scrivo%20dal%20sito%20di%20Zero%20Gravity." rel="noopener">Scrivi su WhatsApp</a>
+        <a class="btn btn--soft btn--block" href="tel:+393477123959">Chiama +39 347 712 3959</a>
+      </div>
     </nav>
+    <a class="btn btn--small topbar-cta" href="prenota.html">Prenota</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 <main id="main">
-<section class="section studio-page" aria-labelledby="studio-h1">
+<section class="studio" aria-labelledby="studio-h1">
   <div class="wrap">
 
     <!-- accesso -->
     <div class="studio-login" data-login-box hidden>
       <h1 id="studio-h1">Area studio</h1>
-      <p class="lead" style="margin:16px 0 32px">Qui metti in vetrina le lezioni con posti liberi e vedi chi le ha prenotate.</p>
+      <p class="lead" style="margin:16px 0 28px">Qui crei i corsi, aggiungi le date e vedi chi ha prenotato.</p>
       <p class="form-msg ok" data-demo-login hidden style="margin-bottom:20px">Versione di prova: entra con email <strong data-demo-email></strong> e password <strong data-demo-password></strong>.</p>
       <form class="form" data-login-form novalidate>
         <div class="field full"><label for="l-email">Email</label><input id="l-email" name="email" type="email" autocomplete="email" required></div>
         <div class="field full"><label for="l-pw">Password</label><input id="l-pw" name="password" type="password" autocomplete="current-password" required></div>
-        <div class="full"><button class="btn btn--block" type="submit">Entra</button></div>
+        <div class="full"><button class="btn btn--block btn--big" type="submit">Entra</button></div>
         <p class="form-msg" role="alert"></p>
       </form>
     </div>
 
     <!-- pannello -->
     <div data-panel hidden>
-      <div class="dash-head">
+      <div class="studio-head">
         <h1>Ciao Anna</h1>
-        <button class="btn btn--soft btn--small" data-logout>Esci</button>
+        <div class="studio-head-actions">
+          <a class="btn btn--wa btn--small" data-share-wa href="#" rel="noopener">Condividi i posti liberi</a>
+          <button class="btn btn--soft btn--small" data-logout>Esci</button>
+        </div>
       </div>
 
-      <div class="dash" style="margin-top:32px">
+      <div class="tabs-big" role="tablist" aria-label="Sezioni">
+        <button role="tab" aria-selected="true" aria-controls="tab-prenotazioni" data-tab="prenotazioni"><b>Prenotazioni</b><span>Chi viene a lezione</span></button>
+        <button role="tab" aria-selected="false" aria-controls="tab-date" data-tab="date"><b>Aggiungi date</b><span>Giorni e orari dei corsi</span></button>
+        <button role="tab" aria-selected="false" aria-controls="tab-corsi" data-tab="corsi"><b>Corsi</b><span>Crea e modifica i corsi</span></button>
+      </div>
+
+      <!-- PRENOTAZIONI -->
+      <div class="tab-panel" id="tab-prenotazioni" role="tabpanel" data-panel-tab="prenotazioni">
+        <div class="stat-row" data-stats></div>
+        <div class="toolbar">
+          <label class="field-inline">Corso <select data-filter-course><option value="">Tutti</option></select></label>
+          <label class="check"><input type="checkbox" data-show-past><span>Mostra anche l'ultima settimana</span></label>
+        </div>
+        <div data-bookings><p class="loading">Carico…</p></div>
+      </div>
+
+      <!-- AGGIUNGI DATE -->
+      <div class="tab-panel" id="tab-date" role="tabpanel" data-panel-tab="date" hidden>
         <div class="panel-box">
-          <h2>Aggiungi una lezione</h2>
-          <form class="add-form" data-add-form novalidate>
-            <div class="field span-2"><label for="s-title">Nome della lezione</label><input id="s-title" name="title" type="text" list="s-names" maxlength="80" placeholder="Es. Pilates matwork" required><datalist id="s-names"></datalist></div>
-            <div class="field"><label for="s-date">Giorno</label><input id="s-date" name="date" type="date" required></div>
-            <div class="field"><label for="s-time">Ora</label><input id="s-time" name="time" type="time" step="300" required></div>
-            <div class="field"><label for="s-duration">Durata (minuti)</label><input id="s-duration" name="duration" type="number" min="10" max="240" value="55" required></div>
-            <div class="field"><label for="s-price">Prezzo €</label><input id="s-price" name="price" type="number" min="0" step="0.5" placeholder="Es. 15" required></div>
-            <div class="field"><label for="s-capacity">Posti totali</label><input id="s-capacity" name="capacity" type="number" min="1" max="50" value="6" required></div>
-            <div class="field"><label for="s-enrolled">Già iscritti</label><input id="s-enrolled" name="enrolled" type="number" min="0" max="49" value="0" required></div>
-            <p class="free-preview span-2" data-free-preview aria-live="polite"></p>
-            <div class="field span-2"><label for="s-note">Nota <span class="muted">(facoltativa)</span></label><input id="s-note" name="note" type="text" maxlength="140" placeholder="Es. adatta anche a chi inizia"></div>
-            <div class="span-2"><button class="btn" type="submit">Pubblica</button></div>
-            <p class="form-msg span-2" role="status" aria-live="polite"></p>
+          <div data-no-course hidden class="empty-box">
+            <p>Prima crea almeno un corso: poi qui gli aggiungi giorni e orari.</p>
+            <button class="btn" type="button" data-goto="corsi">Crea un corso</button>
+          </div>
+          <form class="wizard" data-slots-form novalidate>
+            <div class="wiz-step">
+              <span class="step-n" aria-hidden="true">1</span>
+              <div class="field"><label for="w-course">Quale corso?</label><select id="w-course" name="courseId" required></select></div>
+            </div>
+            <div class="wiz-step">
+              <span class="step-n" aria-hidden="true">2</span>
+              <div class="field"><label for="w-start">Dal giorno</label><input id="w-start" name="start" type="date" required></div>
+            </div>
+            <div class="wiz-step">
+              <span class="step-n" aria-hidden="true">3</span>
+              <fieldset class="field">
+                <legend>A che ora? <span class="muted">(puoi metterne più di una)</span></legend>
+                <div class="times" data-times></div>
+                <button class="textbtn" type="button" data-add-time>+ Aggiungi un altro orario</button>
+              </fieldset>
+            </div>
+            <div class="wiz-step">
+              <span class="step-n" aria-hidden="true">4</span>
+              <fieldset class="field">
+                <legend>Si ripete?</legend>
+                <div class="radios" data-repeat>
+                  <label><input type="radio" name="repeat" value="none" checked><span>Una volta sola</span></label>
+                  <label><input type="radio" name="repeat" value="daily"><span>Ogni giorno</span></label>
+                  <label><input type="radio" name="repeat" value="every2"><span>Ogni 2 giorni</span></label>
+                  <label><input type="radio" name="repeat" value="weekly"><span>Ogni settimana</span></label>
+                  <label><input type="radio" name="repeat" value="monthly"><span>Ogni mese</span></label>
+                </div>
+                <div class="weekdays" data-weekdays hidden>
+                  <p class="small muted" style="margin:14px 0 8px">In quali giorni della settimana?</p>
+                  <div class="radios">
+                    <label><input type="checkbox" name="wd" value="1"><span>Lun</span></label>
+                    <label><input type="checkbox" name="wd" value="2"><span>Mar</span></label>
+                    <label><input type="checkbox" name="wd" value="3"><span>Mer</span></label>
+                    <label><input type="checkbox" name="wd" value="4"><span>Gio</span></label>
+                    <label><input type="checkbox" name="wd" value="5"><span>Ven</span></label>
+                    <label><input type="checkbox" name="wd" value="6"><span>Sab</span></label>
+                    <label><input type="checkbox" name="wd" value="0"><span>Dom</span></label>
+                  </div>
+                </div>
+                <div class="field" data-until hidden style="margin-top:14px;max-width:260px"><label for="w-until">Fino al giorno</label><input id="w-until" name="until" type="date"></div>
+              </fieldset>
+            </div>
+            <div class="wiz-step">
+              <span class="step-n" aria-hidden="true">5</span>
+              <div class="field" style="max-width:260px"><label for="w-enrolled">Già iscritti per ogni lezione</label><input id="w-enrolled" name="enrolled" type="number" min="0" value="0"><span class="hint">Chi si è già iscritto in studio o con te.</span></div>
+            </div>
+            <div class="preview" data-preview aria-live="polite"></div>
+            <button class="btn btn--big" type="submit">Crea le date</button>
+            <p class="form-msg" role="status" aria-live="polite"></p>
           </form>
         </div>
+      </div>
 
-        <aside>
-          <div class="panel-box panel-box--fog">
-            <h2 style="font-size:var(--fs-h3)">Condividi</h2>
-            <p>Manda l'elenco dei posti liberi nei tuoi gruppi, con il link per prenotare.</p>
-            <div style="display:grid;gap:10px;margin-top:16px">
-              <a class="btn btn--wa" data-share-wa href="#" rel="noopener">Condividi su WhatsApp</a>
-              <button class="btn btn--soft" type="button" data-share-copy>Copia il messaggio</button>
-            </div>
+      <!-- CORSI -->
+      <div class="tab-panel" id="tab-corsi" role="tabpanel" data-panel-tab="corsi" hidden>
+        <div class="dash">
+          <div class="panel-box">
+            <h2 data-course-form-title>Nuovo corso</h2>
+            <form class="form" data-course-form novalidate>
+              <input type="hidden" name="id">
+              <div class="field full"><label for="c-name">Nome del corso</label><input id="c-name" name="name" type="text" maxlength="80" placeholder="Es. Pilates matwork" required></div>
+              <div class="field full"><label for="c-desc">Descrizione <span class="muted">(facoltativa)</span></label><textarea id="c-desc" name="description" maxlength="400" placeholder="Es. Pilates a corpo libero sul tappetino, adatto anche a chi inizia."></textarea></div>
+              <div class="field"><label for="c-duration">Durata (minuti)</label><input id="c-duration" name="duration" type="number" min="10" max="240" value="55" required></div>
+              <div class="field"><label for="c-capacity">Posti per lezione</label><input id="c-capacity" name="capacity" type="number" min="1" max="50" value="6" required></div>
+              <div class="field"><label for="c-price">Prezzo a lezione €</label><input id="c-price" name="price" type="number" min="0" step="0.5" placeholder="Es. 15" required></div>
+              <div class="full form-actions"><button class="btn" type="submit" data-course-submit>Crea il corso</button><button class="textbtn" type="button" data-course-reset hidden>Annulla modifica</button></div>
+              <p class="form-msg" role="status" aria-live="polite"></p>
+            </form>
           </div>
-        </aside>
+          <div>
+            <div class="panel-box panel-box--fog">
+              <h2>I tuoi corsi</h2>
+              <div data-courses></div>
+            </div>
+            <details class="panel-box studio-pw" style="margin-top:20px">
+              <summary>Cambia password</summary>
+              <form class="form" data-pw-form novalidate style="margin-top:16px">
+                <div class="field full"><label for="pw-cur">Password attuale</label><input id="pw-cur" name="current" type="password" autocomplete="current-password" required></div>
+                <div class="field full"><label for="pw-new">Nuova password</label><input id="pw-new" name="next" type="password" autocomplete="new-password" minlength="8" required></div>
+                <div class="full"><button class="btn btn--small" type="submit">Salva</button></div>
+                <p class="form-msg" role="status" aria-live="polite"></p>
+              </form>
+            </details>
+          </div>
+        </div>
       </div>
-
-      <div class="panel-box" style="margin-top:20px">
-        <h2>Le tue lezioni in vetrina</h2>
-        <div data-list><p class="loading">Carico…</p></div>
-      </div>
-
-      <details class="panel-box panel-box--fog studio-pw" style="margin-top:20px">
-        <summary>Cambia password</summary>
-        <form class="form" data-pw-form novalidate style="margin-top:16px">
-          <div class="field"><label for="pw-cur">Password attuale</label><input id="pw-cur" name="current" type="password" autocomplete="current-password" required></div>
-          <div class="field"><label for="pw-new">Nuova password</label><input id="pw-new" name="next" type="password" autocomplete="new-password" minlength="8" required></div>
-          <div class="full"><button class="btn btn--small" type="submit">Salva</button></div>
-          <p class="form-msg" role="status" aria-live="polite"></p>
-        </form>
-      </details>
     </div>
 
   </div>
@@ -121,6 +199,7 @@
   <a class="btn btn--wa" href="https://wa.me/393477123959?text=Ciao%20Anna%2C%20ti%20scrivo%20dal%20sito%20di%20Zero%20Gravity." rel="noopener">WhatsApp</a>
 </div>
 <div class="toast" role="status" aria-live="polite"></div>
+<script src="js/core.js" defer></script>
 <script src="js/demo.js" defer></script>
 <script src="js/site.js" defer></script>
 <script src="js/studio.js" defer></script>

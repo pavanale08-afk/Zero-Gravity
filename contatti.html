@@ -23,15 +23,24 @@
 <body>
 <div class="demo-bar" data-demo-bar hidden>Versione di prova: lezioni e prenotazioni restano solo su questo dispositivo e non arrivano a nessuno.</div>
 <a class="skip" href="#main">Vai al contenuto</a>
-<header class="site-header">
-  <div class="wrap">
-    <a class="wordmark" href="index.html" aria-label="Zero Gravity Pilates &amp; Dance, home">Zero Gravity<span>Pilates &amp; Dance · Feltre</span></a>
-    <nav class="nav nav--simple" aria-label="Principale">
-      <a href="posti-liberi.html">Posti liberi</a>
-      <a href="corsi.html">Corsi</a>
-      <a href="chi-siamo.html">Chi siamo</a>
-      <a href="contatti.html" aria-current="page">Contatti</a>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="wordmark" href="index.html" aria-label="Zero Gravity Pilates &amp; Dance, torna alla home">Zero Gravity<span>Pilates &amp; Dance · Feltre</span></a>
+    <nav class="topnav" id="menu" aria-label="Principale">
+      <div class="topnav-links">
+        <a href="index.html">Home</a>
+        <a href="corsi.html">Corsi</a>
+        <a href="chi-siamo.html">Chi siamo</a>
+        <a href="contatti.html" aria-current="page">Contatti</a>
+      </div>
+      <a class="btn topnav-cta" href="prenota.html">Prenota</a>
+      <div class="topnav-extra">
+        <a class="btn btn--wa btn--block" href="https://wa.me/393477123959?text=Ciao%20Anna%2C%20ti%20scrivo%20dal%20sito%20di%20Zero%20Gravity." rel="noopener">Scrivi su WhatsApp</a>
+        <a class="btn btn--soft btn--block" href="tel:+393477123959">Chiama +39 347 712 3959</a>
+      </div>
     </nav>
+    <a class="btn btn--small topbar-cta" href="prenota.html">Prenota</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 <main id="main">
@@ -64,6 +73,7 @@
   <a class="btn btn--wa" href="https://wa.me/393477123959?text=Ciao%20Anna%2C%20ti%20scrivo%20dal%20sito%20di%20Zero%20Gravity." rel="noopener">WhatsApp</a>
 </div>
 <div class="toast" role="status" aria-live="polite"></div>
+<script src="js/core.js" defer></script>
 <script src="js/demo.js" defer></script>
 <script src="js/site.js" defer></script>
 </body>
