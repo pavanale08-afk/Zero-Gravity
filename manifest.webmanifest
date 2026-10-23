@@ -1,0 +1,16 @@
+{
+  "name": "Zero Gravity Pilates & Dance",
+  "short_name": "Zero Gravity",
+  "description": "Posti liberi e prenotazioni dello studio di pilates e danza a Feltre",
+  "lang": "it",
+  "start_url": "./index.html?app=1",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F3EC",
+  "theme_color": "#1F3B4D",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

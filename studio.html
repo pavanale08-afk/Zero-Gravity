@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="it" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Area studio | Zero Gravity</title>
+<meta name="description" content="Area riservata dello studio.">
+<link rel="canonical" href="https://www.zerogravityfeltre.it/studio">
+<meta property="og:title" content="Area studio | Zero Gravity">
+<meta property="og:description" content="Area riservata dello studio.">
+<meta property="og:image" content="https://www.zerogravityfeltre.it/img/reformer-studio.jpg">
+<meta name="theme-color" content="#1F3B4D">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<meta name="apple-mobile-web-app-title" content="Zero Gravity">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.remove('no-js')</script>
+</head>
+<body>
+<div class="demo-bar" data-demo-bar hidden>Versione di prova: lezioni e prenotazioni restano solo su questo dispositivo e non arrivano a nessuno.</div>
+<a class="skip" href="#main">Vai al contenuto</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="index.html" aria-label="Zero Gravity Pilates &amp; Dance, home">Zero Gravity<span>Pilates &amp; Dance · Feltre</span></a>
+    <nav class="nav nav--simple" aria-label="Principale">
+      <a href="posti-liberi.html">Posti liberi</a>
+      <a href="corsi.html">Corsi</a>
+      <a href="chi-siamo.html">Chi siamo</a>
+      <a href="contatti.html">Contatti</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="section studio-page" aria-labelledby="studio-h1">
+  <div class="wrap">
+
+    <!-- accesso -->
+    <div class="studio-login" data-login-box hidden>
+      <h1 id="studio-h1">Area studio</h1>
+      <p class="lead" style="margin:16px 0 32px">Qui metti in vetrina le lezioni con posti liberi e vedi chi le ha prenotate.</p>
+      <p class="form-msg ok" data-demo-login hidden style="margin-bottom:20px">Versione di prova: entra con email <strong data-demo-email></strong> e password <strong data-demo-password></strong>.</p>
+      <form class="form" data-login-form novalidate>
+        <div class="field full"><label for="l-email">Email</label><input id="l-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field full"><label for="l-pw">Password</label><input id="l-pw" name="password" type="password" autocomplete="current-password" required></div>
+        <div class="full"><button class="btn btn--block" type="submit">Entra</button></div>
+        <p class="form-msg" role="alert"></p>
+      </form>
+    </div>
+
+    <!-- pannello -->
+    <div data-panel hidden>
+      <div class="dash-head">
+        <h1>Ciao Anna</h1>
+        <button class="btn btn--soft btn--small" data-logout>Esci</button>
+      </div>
+
+      <div class="dash" style="margin-top:32px">
+        <div class="panel-box">
+          <h2>Aggiungi una lezione</h2>
+          <form class="add-form" data-add-form novalidate>
+            <div class="field span-2"><label for="s-title">Nome della lezione</label><input id="s-title" name="title" type="text" list="s-names" maxlength="80" placeholder="Es. Pilates matwork" required><datalist id="s-names"></datalist></div>
+            <div class="field"><label for="s-date">Giorno</label><input id="s-date" name="date" type="date" required></div>
+            <div class="field"><label for="s-time">Ora</label><input id="s-time" name="time" type="time" step="300" required></div>
+            <div class="field"><label for="s-duration">Durata (minuti)</label><input id="s-duration" name="duration" type="number" min="10" max="240" value="55" required></div>
+            <div class="field"><label for="s-price">Prezzo €</label><input id="s-price" name="price" type="number" min="0" step="0.5" placeholder="Es. 15" required></div>
+            <div class="field"><label for="s-capacity">Posti totali</label><input id="s-capacity" name="capacity" type="number" min="1" max="50" value="6" required></div>
+            <div class="field"><label for="s-enrolled">Già iscritti</label><input id="s-enrolled" name="enrolled" type="number" min="0" max="49" value="0" required></div>
+            <p class="free-preview span-2" data-free-preview aria-live="polite"></p>
+            <div class="field span-2"><label for="s-note">Nota <span class="muted">(facoltativa)</span></label><input id="s-note" name="note" type="text" maxlength="140" placeholder="Es. adatta anche a chi inizia"></div>
+            <div class="span-2"><button class="btn" type="submit">Pubblica</button></div>
+            <p class="form-msg span-2" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <aside>
+          <div class="panel-box panel-box--fog">
+            <h2 style="font-size:var(--fs-h3)">Condividi</h2>
+            <p>Manda l'elenco dei posti liberi nei tuoi gruppi, con il link per prenotare.</p>
+            <div style="display:grid;gap:10px;margin-top:16px">
+              <a class="btn btn--wa" data-share-wa href="#" rel="noopener">Condividi su WhatsApp</a>
+              <button class="btn btn--soft" type="button" data-share-copy>Copia il messaggio</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="panel-box" style="margin-top:20px">
+        <h2>Le tue lezioni in vetrina</h2>
+        <div data-list><p class="loading">Carico…</p></div>
+      </div>
+
+      <details class="panel-box panel-box--fog studio-pw" style="margin-top:20px">
+        <summary>Cambia password</summary>
+        <form class="form" data-pw-form novalidate style="margin-top:16px">
+          <div class="field"><label for="pw-cur">Password attuale</label><input id="pw-cur" name="current" type="password" autocomplete="current-password" required></div>
+          <div class="field"><label for="pw-new">Nuova password</label><input id="pw-new" name="next" type="password" autocomplete="new-password" minlength="8" required></div>
+          <div class="full"><button class="btn btn--small" type="submit">Salva</button></div>
+          <p class="form-msg" role="status" aria-live="polite"></p>
+        </form>
+      </details>
+    </div>
+
+  </div>
+</section>
+</main>
+<footer class="site-footer site-footer--simple">
+  <div class="wrap footer-simple">
+    <p class="footer-name" aria-hidden="true">Zero Gravity</p>
+    <p>Via Monte Cauriol 3/A, 32032 Feltre (BL) · <a href="tel:+393477123959">+39 347 712 3959</a> · <a href="https://www.instagram.com/zero_gravity_pilates_and_dance/" rel="noopener">Instagram</a></p>
+    <p class="small">© <span data-year>2026</span> Zero Gravity Pilates &amp; Dance di Anna Argenti · P.IVA [da inserire] · <a href="privacy.html">Privacy</a> · <a href="studio.html">Area studio</a></p>
+  </div>
+  <p class="credits">Fotografie: “Parco nazionale delle Dolomiti bellunesi, Le Vette Feltrine” di Zenone Sovilla, CC BY-SA 4.0 (<a href="https://commons.wikimedia.org/w/index.php?curid=91440854" rel="noopener">fonte</a>) · “Vista sulle vette feltrine” di BarbaraZan, CC BY-SA 4.0 (<a href="https://commons.wikimedia.org/w/index.php?curid=193949999" rel="noopener">fonte</a>) · “Parco Dolomiti Bellunesi . Dal Monte Avena verso le Vette Feltrine” di Scorpione52, CC BY-SA 4.0 (<a href="https://commons.wikimedia.org/w/index.php?curid=79649779" rel="noopener">fonte</a>) · “Feltre 015” di Zavijavah, CC BY-SA 3.0 (<a href="https://commons.wikimedia.org/w/index.php?curid=5078667" rel="noopener">fonte</a>) · “Pilates reformer” di Maddi Bazzocco, CC0 (<a href="https://commons.wikimedia.org/w/index.php?curid=77785256" rel="noopener">fonte</a>) · “Degas - Two Ballet Dancers at the Barre, circa 1872” di Edgar Degas, CC BY-SA 4.0 (<a href="https://commons.wikimedia.org/w/index.php?curid=78385907" rel="noopener">fonte</a>) · “Kinderen krijgen les aan de barre in een oefenruimte, Bestanddeelnr 252-9200” di Willem van de Poll, CC0 (<a href="https://commons.wikimedia.org/w/index.php?curid=66651863" rel="noopener">fonte</a>) · “Pilates reformer pic” di Payam.nazeri96, CC BY-SA 4.0 (<a href="https://commons.wikimedia.org/w/index.php?curid=179905146" rel="noopener">fonte</a>).</p>
+</footer>
+<div class="quickbar" aria-label="Contatti rapidi">
+  <a class="btn btn--soft" href="tel:+393477123959">Chiama</a>
+  <a class="btn btn--wa" href="https://wa.me/393477123959?text=Ciao%20Anna%2C%20ti%20scrivo%20dal%20sito%20di%20Zero%20Gravity." rel="noopener">WhatsApp</a>
+</div>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="js/demo.js" defer></script>
+<script src="js/site.js" defer></script>
+<script src="js/studio.js" defer></script>
+</body>
+</html>

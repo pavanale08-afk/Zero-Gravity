@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /studio
+Disallow: /api/
+Sitemap: https://www.zerogravityfeltre.it/sitemap.xml
