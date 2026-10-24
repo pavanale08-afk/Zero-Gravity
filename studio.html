@@ -33,6 +33,7 @@
         <a href="corsi.html">Corsi</a>
         <a href="chi-siamo.html">Chi siamo</a>
         <a href="contatti.html">Contatti</a>
+        <a href="area-clienti.html">La mia area</a>
       </div>
       <a class="btn topnav-cta" href="prenota.html">Prenota</a>
       <div class="topnav-extra">
@@ -51,7 +52,7 @@
     <!-- accesso -->
     <div class="studio-login" data-login-box hidden>
       <h1 id="studio-h1">Area studio</h1>
-      <p class="lead" style="margin:16px 0 28px">Qui crei i corsi, aggiungi le date e vedi chi ha prenotato.</p>
+      <p class="lead" style="margin:16px 0 28px">Qui gestisci corsi, servizi, prenotazioni e pagamenti.</p>
       <p class="form-msg ok" data-demo-login hidden style="margin-bottom:20px">Versione di prova: entra con email <strong data-demo-email></strong> e password <strong data-demo-password></strong>.</p>
       <form class="form" data-login-form novalidate>
         <div class="field full"><label for="l-email">Email</label><input id="l-email" name="email" type="email" autocomplete="email" required></div>
@@ -71,113 +72,132 @@
         </div>
       </div>
 
-      <div class="tabs-big" role="tablist" aria-label="Sezioni">
-        <button role="tab" aria-selected="true" aria-controls="tab-prenotazioni" data-tab="prenotazioni"><b>Prenotazioni</b><span>Chi viene a lezione</span></button>
-        <button role="tab" aria-selected="false" aria-controls="tab-date" data-tab="date"><b>Aggiungi date</b><span>Giorni e orari dei corsi</span></button>
-        <button role="tab" aria-selected="false" aria-controls="tab-corsi" data-tab="corsi"><b>Corsi</b><span>Crea e modifica i corsi</span></button>
+      <div class="tabs-big tabs-5" role="tablist" aria-label="Sezioni">
+        <button role="tab" aria-selected="true" data-tab="prenotazioni"><b>Prenotazioni</b><span>Chi viene e richieste</span></button>
+        <button role="tab" aria-selected="false" data-tab="gestionale"><b>Gestionale</b><span>Iscrizioni e pagamenti</span></button>
+        <button role="tab" aria-selected="false" data-tab="corsi"><b>Corsi</b><span>Orari della settimana</span></button>
+        <button role="tab" aria-selected="false" data-tab="servizi"><b>Servizi</b><span>Terapie su richiesta</span></button>
+        <button role="tab" aria-selected="false" data-tab="impostazioni"><b>Impostazioni</b><span>Orari dello studio</span></button>
       </div>
 
       <!-- PRENOTAZIONI -->
-      <div class="tab-panel" id="tab-prenotazioni" role="tabpanel" data-panel-tab="prenotazioni">
-        <div class="stat-row" data-stats></div>
+      <div class="tab-panel" data-panel-tab="prenotazioni">
+        <div class="panel-box panel-box--warm" data-requests-box hidden>
+          <h2>Richieste da confermare</h2>
+          <div data-requests></div>
+        </div>
         <div class="toolbar">
           <label class="field-inline">Corso <select data-filter-course><option value="">Tutti</option></select></label>
-          <label class="check"><input type="checkbox" data-show-past><span>Mostra anche l'ultima settimana</span></label>
+          <label class="check"><input type="checkbox" data-show-past><span>Mostra anche le ultime due settimane</span></label>
         </div>
-        <div data-bookings><p class="loading">Carico…</p></div>
+        <div data-agenda><p class="loading">Carico…</p></div>
       </div>
 
-      <!-- AGGIUNGI DATE -->
-      <div class="tab-panel" id="tab-date" role="tabpanel" data-panel-tab="date" hidden>
-        <div class="panel-box">
-          <div data-no-course hidden class="empty-box">
-            <p>Prima crea almeno un corso: poi qui gli aggiungi giorni e orari.</p>
-            <button class="btn" type="button" data-goto="corsi">Crea un corso</button>
+      <!-- GESTIONALE -->
+      <div class="tab-panel" data-panel-tab="gestionale" hidden>
+        <div class="stat-row" data-money></div>
+        <div class="toolbar">
+          <div class="seg" role="group" aria-label="Pagamento" data-pay-filter>
+            <button type="button" aria-pressed="true" data-pay="due">Da pagare</button>
+            <button type="button" aria-pressed="false" data-pay="paid">Pagati</button>
+            <button type="button" aria-pressed="false" data-pay="all">Tutti</button>
           </div>
-          <form class="wizard" data-slots-form novalidate>
-            <div class="wiz-step">
-              <span class="step-n" aria-hidden="true">1</span>
-              <div class="field"><label for="w-course">Quale corso?</label><select id="w-course" name="courseId" required></select></div>
-            </div>
-            <div class="wiz-step">
-              <span class="step-n" aria-hidden="true">2</span>
-              <div class="field"><label for="w-start">Dal giorno</label><input id="w-start" name="start" type="date" required></div>
-            </div>
-            <div class="wiz-step">
-              <span class="step-n" aria-hidden="true">3</span>
-              <fieldset class="field">
-                <legend>A che ora? <span class="muted">(puoi metterne più di una)</span></legend>
-                <div class="times" data-times></div>
-                <button class="textbtn" type="button" data-add-time>+ Aggiungi un altro orario</button>
-              </fieldset>
-            </div>
-            <div class="wiz-step">
-              <span class="step-n" aria-hidden="true">4</span>
-              <fieldset class="field">
-                <legend>Si ripete?</legend>
-                <div class="radios" data-repeat>
-                  <label><input type="radio" name="repeat" value="none" checked><span>Una volta sola</span></label>
-                  <label><input type="radio" name="repeat" value="daily"><span>Ogni giorno</span></label>
-                  <label><input type="radio" name="repeat" value="every2"><span>Ogni 2 giorni</span></label>
-                  <label><input type="radio" name="repeat" value="weekly"><span>Ogni settimana</span></label>
-                  <label><input type="radio" name="repeat" value="monthly"><span>Ogni mese</span></label>
-                </div>
-                <div class="weekdays" data-weekdays hidden>
-                  <p class="small muted" style="margin:14px 0 8px">In quali giorni della settimana?</p>
-                  <div class="radios">
-                    <label><input type="checkbox" name="wd" value="1"><span>Lun</span></label>
-                    <label><input type="checkbox" name="wd" value="2"><span>Mar</span></label>
-                    <label><input type="checkbox" name="wd" value="3"><span>Mer</span></label>
-                    <label><input type="checkbox" name="wd" value="4"><span>Gio</span></label>
-                    <label><input type="checkbox" name="wd" value="5"><span>Ven</span></label>
-                    <label><input type="checkbox" name="wd" value="6"><span>Sab</span></label>
-                    <label><input type="checkbox" name="wd" value="0"><span>Dom</span></label>
-                  </div>
-                </div>
-                <div class="field" data-until hidden style="margin-top:14px;max-width:260px"><label for="w-until">Fino al giorno</label><input id="w-until" name="until" type="date"></div>
-              </fieldset>
-            </div>
-            <div class="wiz-step">
-              <span class="step-n" aria-hidden="true">5</span>
-              <div class="field" style="max-width:260px"><label for="w-enrolled">Già iscritti per ogni lezione</label><input id="w-enrolled" name="enrolled" type="number" min="0" value="0"><span class="hint">Chi si è già iscritto in studio o con te.</span></div>
-            </div>
-            <div class="preview" data-preview aria-live="polite"></div>
-            <button class="btn btn--big" type="submit">Crea le date</button>
-            <p class="form-msg" role="status" aria-live="polite"></p>
-          </form>
+          <label class="field-inline">Cerca <input type="text" data-search placeholder="Nome, telefono o corso"></label>
+        </div>
+        <div class="table-wrap">
+          <table class="ledger">
+            <thead><tr><th>Cliente</th><th>Cosa</th><th>Quando</th><th>Iscritto il</th><th class="num">Importo</th><th>Pagato</th></tr></thead>
+            <tbody data-ledger></tbody>
+          </table>
+        </div>
+        <div class="panel-box" style="margin-top:28px">
+          <h2>Clienti</h2>
+          <div class="table-wrap">
+            <table class="ledger">
+              <thead><tr><th>Nome</th><th>Telefono</th><th>Email</th><th>Registrato il</th><th class="num">Iscrizioni</th><th class="num">Da pagare</th></tr></thead>
+              <tbody data-clients></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- CORSI -->
-      <div class="tab-panel" id="tab-corsi" role="tabpanel" data-panel-tab="corsi" hidden>
+      <div class="tab-panel" data-panel-tab="corsi" hidden>
         <div class="dash">
           <div class="panel-box">
-            <h2 data-course-form-title>Nuovo corso</h2>
+            <h2 data-course-title>Nuovo corso</h2>
             <form class="form" data-course-form novalidate>
               <input type="hidden" name="id">
               <div class="field full"><label for="c-name">Nome del corso</label><input id="c-name" name="name" type="text" maxlength="80" placeholder="Es. Pilates matwork" required></div>
-              <div class="field full"><label for="c-desc">Descrizione <span class="muted">(facoltativa)</span></label><textarea id="c-desc" name="description" maxlength="400" placeholder="Es. Pilates a corpo libero sul tappetino, adatto anche a chi inizia."></textarea></div>
-              <div class="field"><label for="c-duration">Durata (minuti)</label><input id="c-duration" name="duration" type="number" min="10" max="240" value="55" required></div>
+              <div class="field full"><label for="c-desc">Descrizione <span class="muted">(facoltativa)</span></label><textarea id="c-desc" name="description" maxlength="400" placeholder="Es. Pilates a corpo libero, adatto anche a chi inizia."></textarea></div>
               <div class="field"><label for="c-capacity">Posti per lezione</label><input id="c-capacity" name="capacity" type="number" min="1" max="50" value="6" required></div>
               <div class="field"><label for="c-price">Prezzo a lezione €</label><input id="c-price" name="price" type="number" min="0" step="0.5" placeholder="Es. 15" required></div>
-              <div class="full form-actions"><button class="btn" type="submit" data-course-submit>Crea il corso</button><button class="textbtn" type="button" data-course-reset hidden>Annulla modifica</button></div>
+              <fieldset class="field full">
+                <legend data-rows-legend>Quando si fa</legend>
+                <div class="rows" data-rows></div>
+                <button class="textbtn" type="button" data-add-row>+ Aggiungi un altro orario</button>
+              </fieldset>
+              <div class="field" data-until-field><label for="c-until">Fino al</label><input id="c-until" name="until" type="date"><span class="hint">Già impostato a fine stagione.</span></div>
+              <p class="preview full" data-course-preview aria-live="polite"></p>
+              <div class="full form-actions"><button class="btn btn--big" type="submit" data-course-submit>Crea il corso</button><button class="textbtn" type="button" data-course-reset hidden>Annulla</button></div>
               <p class="form-msg" role="status" aria-live="polite"></p>
             </form>
           </div>
-          <div>
-            <div class="panel-box panel-box--fog">
-              <h2>I tuoi corsi</h2>
-              <div data-courses></div>
-            </div>
-            <details class="panel-box studio-pw" style="margin-top:20px">
-              <summary>Cambia password</summary>
-              <form class="form" data-pw-form novalidate style="margin-top:16px">
-                <div class="field full"><label for="pw-cur">Password attuale</label><input id="pw-cur" name="current" type="password" autocomplete="current-password" required></div>
-                <div class="field full"><label for="pw-new">Nuova password</label><input id="pw-new" name="next" type="password" autocomplete="new-password" minlength="8" required></div>
-                <div class="full"><button class="btn btn--small" type="submit">Salva</button></div>
-                <p class="form-msg" role="status" aria-live="polite"></p>
-              </form>
-            </details>
+          <div class="panel-box panel-box--fog">
+            <h2>I tuoi corsi</h2>
+            <div data-courses></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVIZI -->
+      <div class="tab-panel" data-panel-tab="servizi" hidden>
+        <div class="dash">
+          <div class="panel-box">
+            <h2 data-service-title>Nuovo servizio</h2>
+            <p class="muted" style="margin:-6px 0 18px">I clienti li prenotano nelle ore libere del calendario; tu confermi.</p>
+            <form class="form" data-service-form novalidate>
+              <input type="hidden" name="id">
+              <div class="field full"><label for="s-name">Nome</label><input id="s-name" name="name" type="text" maxlength="80" placeholder="Es. Pilates posturale individuale" required></div>
+              <div class="field full"><label for="s-desc">Descrizione <span class="muted">(facoltativa)</span></label><textarea id="s-desc" name="description" maxlength="400"></textarea></div>
+              <div class="field"><label for="s-duration">Durata (minuti)</label><input id="s-duration" name="duration" type="number" min="15" max="240" step="15" value="60" required></div>
+              <div class="field"><label for="s-price">Prezzo €</label><input id="s-price" name="price" type="number" min="0" step="0.5" required></div>
+              <div class="full form-actions"><button class="btn" type="submit" data-service-submit>Aggiungi il servizio</button><button class="textbtn" type="button" data-service-reset hidden>Annulla</button></div>
+              <p class="form-msg" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+          <div class="panel-box panel-box--fog">
+            <h2>I tuoi servizi</h2>
+            <div data-services></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPOSTAZIONI -->
+      <div class="tab-panel" data-panel-tab="impostazioni" hidden>
+        <div class="dash">
+          <div class="panel-box">
+            <h2>Orari dello studio</h2>
+            <p class="muted" style="margin:-6px 0 18px">Il calendario mostra le ore libere dentro questo orario.</p>
+            <form class="form" data-settings-form novalidate>
+              <div class="field"><label for="st-open">Apre alle</label><input id="st-open" name="open" type="time" step="1800" required></div>
+              <div class="field"><label for="st-close">Chiude alle</label><input id="st-close" name="close" type="time" step="1800" required></div>
+              <fieldset class="field full"><legend>Giorni di chiusura</legend>
+                <div class="radios" data-closed></div>
+              </fieldset>
+              <div class="field"><label for="st-season">Fine stagione</label><input id="st-season" name="seasonEnd" type="date" required><span class="hint">I corsi nuovi si ripetono fino a questa data.</span></div>
+              <div class="full"><button class="btn" type="submit">Salva</button></div>
+              <p class="form-msg" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+          <div class="panel-box panel-box--fog">
+            <h2>Password</h2>
+            <form class="form" data-pw-form novalidate>
+              <div class="field full"><label for="pw-cur">Password attuale</label><input id="pw-cur" name="current" type="password" autocomplete="current-password" required></div>
+              <div class="field full"><label for="pw-new">Nuova password</label><input id="pw-new" name="next" type="password" autocomplete="new-password" minlength="8" required></div>
+              <div class="full"><button class="btn btn--small" type="submit">Cambia password</button></div>
+              <p class="form-msg" role="status" aria-live="polite"></p>
+            </form>
           </div>
         </div>
       </div>

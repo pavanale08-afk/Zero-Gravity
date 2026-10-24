@@ -52,6 +52,52 @@
     },
   };
 
+  /* --- account dei clienti: chi è entrato, e il modulo Accedi / Crea account --- */
+  ZG.client = null;
+  ZG.loadClient = async () => { try { ZG.client = await ZG.api('/api/client/me'); } catch { ZG.client = null; } return ZG.client; };
+
+  // Mette nel contenitore il modulo di accesso; chiama onDone(cliente) quando è entrato.
+  ZG.authForm = (box, onDone, intro = '') => {
+    box.innerHTML = `
+      ${intro ? `<p class="auth-intro">${intro}</p>` : ''}
+      <div class="seg" role="tablist" aria-label="Accesso">
+        <button type="button" role="tab" aria-selected="true" data-mode="login">Ho già un account</button>
+        <button type="button" role="tab" aria-selected="false" data-mode="register">Sono nuovo</button>
+      </div>
+      <form class="form auth-form" novalidate data-auth-form>
+        <div class="field full" data-reg hidden><label>Nome</label><input name="nome" type="text" autocomplete="given-name"></div>
+        <div class="field full" data-reg hidden><label>Cognome</label><input name="cognome" type="text" autocomplete="family-name"></div>
+        <div class="field full" data-reg hidden><label>Telefono</label><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
+        <div class="field full"><label>Email</label><input name="email" type="email" autocomplete="email" required></div>
+        <div class="field full"><label>Password</label><input name="password" type="password" autocomplete="current-password" required><span class="hint" data-reg hidden>Almeno 6 caratteri: ti servirà per rientrare.</span></div>
+        <label class="check full" data-reg hidden><input type="checkbox" name="privacy"><span>Acconsento al trattamento dei miei dati per gestire le prenotazioni (<a class="link" href="privacy.html">informativa</a>).</span></label>
+        <button class="btn btn--block btn--big full" type="submit" data-auth-submit>Entra</button>
+        <p class="form-msg" role="alert"></p>
+      </form>`;
+    let mode = 'login';
+    const form = $('[data-auth-form]', box);
+    // ogni campo con la sua etichetta collegata
+    $$('.field', form).forEach((f, i) => { const input = $('input', f); input.id = `auth-${i}-${Math.random().toString(36).slice(2, 6)}`; $('label', f).htmlFor = input.id; });
+    $$('[data-mode]', box).forEach((b) => b.addEventListener('click', () => {
+      mode = b.dataset.mode;
+      $$('[data-mode]', box).forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+      $$('[data-reg]', box).forEach((el) => { el.hidden = mode !== 'register'; });
+      form.password.autocomplete = mode === 'register' ? 'new-password' : 'current-password';
+      $('[data-auth-submit]', box).textContent = mode === 'register' ? 'Crea il mio account' : 'Entra';
+    }));
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = $('.form-msg', form);
+      msg.className = 'form-msg'; msg.textContent = '';
+      const data = Object.fromEntries(new FormData(form));
+      data.privacy = form.privacy.checked;
+      try {
+        ZG.client = await ZG.api(mode === 'register' ? '/api/client/register' : '/api/client/login', data);
+        onDone(ZG.client);
+      } catch (err) { msg.className = 'form-msg err'; msg.textContent = err.message; }
+    });
+  };
+
   $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 
   /* --- menu a tre linee su telefono --- */
