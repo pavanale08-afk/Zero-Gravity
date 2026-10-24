@@ -1,5 +1,5 @@
 // Service worker minimo: rende il sito installabile e mostra l'ultima versione vista se manca la rete.
-const CACHE = 'zg-v3';
+const CACHE = 'zg-v6';
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch', (e) => {

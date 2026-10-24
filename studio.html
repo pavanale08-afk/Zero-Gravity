@@ -15,9 +15,8 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="img/icon-192.png">
 <meta name="apple-mobile-web-app-title" content="Zero Gravity">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script>document.documentElement.classList.remove('no-js')</script>
 </head>
@@ -72,8 +71,14 @@
         </div>
       </div>
 
+      <button class="alert" type="button" data-alert hidden>
+        <span class="alert-n" data-alert-n></span>
+        <span><b data-alert-text></b><small>Un cliente ha chiesto un'ora libera: confermala o rifiutala.</small></span>
+        <span class="alert-go">Vedi le richieste ›</span>
+      </button>
+
       <div class="tabs-big tabs-5" role="tablist" aria-label="Sezioni">
-        <button role="tab" aria-selected="true" data-tab="prenotazioni"><b>Prenotazioni</b><span>Chi viene e richieste</span></button>
+        <button role="tab" aria-selected="true" data-tab="prenotazioni"><b>Prenotazioni <i class="tab-badge" data-badge hidden></i></b><span>Chi viene e richieste</span></button>
         <button role="tab" aria-selected="false" data-tab="gestionale"><b>Gestionale</b><span>Iscrizioni e pagamenti</span></button>
         <button role="tab" aria-selected="false" data-tab="corsi"><b>Corsi</b><span>Orari della settimana</span></button>
         <button role="tab" aria-selected="false" data-tab="servizi"><b>Servizi</b><span>Terapie su richiesta</span></button>
@@ -82,7 +87,7 @@
 
       <!-- PRENOTAZIONI -->
       <div class="tab-panel" data-panel-tab="prenotazioni">
-        <div class="panel-box panel-box--warm" data-requests-box hidden>
+        <div class="panel-box panel-box--warm" id="richieste" data-requests-box>
           <h2>Richieste da confermare</h2>
           <div data-requests></div>
         </div>
@@ -100,7 +105,7 @@
           <div class="seg" role="group" aria-label="Pagamento" data-pay-filter>
             <button type="button" aria-pressed="true" data-pay="due">Da pagare</button>
             <button type="button" aria-pressed="false" data-pay="paid">Pagati</button>
-            <button type="button" aria-pressed="false" data-pay="all">Tutti</button>
+            <button type="button" aria-pressed="false" data-pay="future">In programma</button>
           </div>
           <label class="field-inline">Cerca <input type="text" data-search placeholder="Nome, telefono o corso"></label>
         </div>
@@ -123,7 +128,14 @@
 
       <!-- CORSI -->
       <div class="tab-panel" data-panel-tab="corsi" hidden>
-        <div class="dash">
+        <div class="band-head" style="margin-bottom:18px">
+          <h2 class="tab-title">I tuoi corsi</h2>
+          <button class="btn" type="button" data-new-course>+ Nuovo corso</button>
+        </div>
+        <p class="muted" style="margin:-6px 0 18px">Tocca un corso per aprirlo: vedi tutti i partecipanti e le prossime lezioni.</p>
+        <div class="course-tiles" data-courses></div>
+
+        <div class="course-form-box" data-course-form-box hidden>
           <div class="panel-box">
             <h2 data-course-title>Nuovo corso</h2>
             <form class="form" data-course-form novalidate>
@@ -139,16 +151,50 @@
               </fieldset>
               <div class="field" data-until-field><label for="c-until">Fino al</label><input id="c-until" name="until" type="date"><span class="hint">Già impostato a fine stagione.</span></div>
               <p class="preview full" data-course-preview aria-live="polite"></p>
-              <div class="full form-actions"><button class="btn btn--big" type="submit" data-course-submit>Crea il corso</button><button class="textbtn" type="button" data-course-reset hidden>Annulla</button></div>
+              <div class="full form-actions"><button class="btn btn--big" type="submit" data-course-submit>Crea il corso</button><button class="textbtn" type="button" data-course-reset>Annulla</button></div>
               <p class="form-msg" role="status" aria-live="polite"></p>
             </form>
           </div>
-          <div class="panel-box panel-box--fog">
-            <h2>I tuoi corsi</h2>
-            <div data-courses></div>
-          </div>
         </div>
       </div>
+
+      <!-- un corso aperto in grande -->
+      <dialog class="course-view" data-course-view aria-labelledby="cv-title">
+        <div class="cv-head">
+          <div>
+            <h2 id="cv-title" data-cv-title></h2>
+            <p class="muted" data-cv-when></p>
+          </div>
+          <div class="cv-actions">
+            <button class="btn btn--soft btn--small" type="button" data-cv-edit>Modifica o aggiungi orari</button>
+            <button class="textbtn" type="button" data-cv-delete>Elimina corso</button>
+            <form method="dialog"><button class="btn btn--small" aria-label="Chiudi">Chiudi</button></form>
+          </div>
+        </div>
+        <div class="stat-row" data-cv-stats></div>
+        <div class="cv-grid">
+          <section aria-labelledby="cv-lessons">
+            <h3 id="cv-lessons" class="cv-sub">Lezioni</h3>
+            <p class="small muted" style="margin:-4px 0 10px">Tocca una lezione per vedere chi c’è e segnare chi ha pagato.</p>
+            <div class="cv-lesson-list" data-cv-lessons></div>
+          </section>
+          <section aria-labelledby="cv-sel" class="cv-selected">
+            <h3 id="cv-sel" class="cv-sub" data-cv-sel-title>Lezione</h3>
+            <p class="muted" data-cv-sel-meta></p>
+            <div data-cv-sel-people></div>
+          </section>
+        </div>
+        <section aria-labelledby="cv-people" style="margin-top:28px">
+          <h3 id="cv-people" class="cv-sub">Tutti i partecipanti del corso</h3>
+          <div class="toolbar" style="margin-bottom:12px">
+            <label class="field-inline">Cerca <input type="text" data-cv-search placeholder="Nome o telefono"></label>
+          </div>
+          <div class="table-wrap"><table class="ledger">
+            <thead><tr><th>Nome</th><th>Contatti</th><th>Iscrizione</th><th>Prossima lezione</th><th class="num">Pagamenti</th><th></th></tr></thead>
+            <tbody data-cv-people></tbody>
+          </table></div>
+        </section>
+      </dialog>
 
       <!-- SERVIZI -->
       <div class="tab-panel" data-panel-tab="servizi" hidden>

@@ -148,7 +148,7 @@
       const base = { ...b, client: publicClient(c) };
       if (b.kind === 'lezione') {
         const s = db.sessions.find((x) => x.id === b.sessionId);
-        return { ...base, title: course(s?.courseId)?.name || 'Lezione', date: s?.date, start: s?.start, end: s?.end };
+        return { ...base, courseId: s?.courseId || null, title: course(s?.courseId)?.name || 'Lezione', date: s?.date, start: s?.start, end: s?.end };
       }
       return { ...base, title: service(b.serviceId)?.name || 'Richiesta personale' };
     }
